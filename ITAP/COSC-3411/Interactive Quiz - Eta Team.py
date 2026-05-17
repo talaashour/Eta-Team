@@ -1,4 +1,4 @@
-
+#!/usr/bin/python
 # Interactive Command Tutor Script — Eta Team
 
 # ANSI color codes
@@ -218,34 +218,58 @@ questions = [ #created a list of dictionaries
     }
 ]
 
-score = 0 #initializees score to zero to keep track of points
+#initializees score to zero to keep track of points
+score = 0 
 
-print("=" * 50) #prints '=' 50 times just to visually seperate from the list of questions
+#prints '=' 50 times just to visually seperate from the list of questions
+print("=" * 50) 
 print(" Welcome to the Interactive Command Tutor ")
 print("               Eta Team")
 print("=" * 50)
 
-for q in questions: #loop that iterates over evert dictionary (q) inside the questions list
+#loop that iterates over evert dictionary (q) inside the questions list
+for q in questions: 
 
-    print("\n" + q["question"]) #prints a space then accesses the value related to the questions key in the current dictionary
+#prints a space then accesses the value related to the questions key in the current dictionary
+    print("\n" + q["question"]) 
+    
+#loop that will iterate through the list of strings stored in the options key for teh current questions
+    for option in q["options"]: 
+    
+#will print all options (a,b,c,d) on a new line
+        print(option) 
+        
+#while loop that ensures user input is only a,b,c,d and won't stop until the code hits a break statement.
+    while True: 
+    
+#prompts the user to type their answer and stores it in variable user_answer
+#.lower() concerts input to lowercase to match the answer key
+#.strip() removes any accidental spaces the user might hit before or after their letter.
+        user_answer = input("Enter your answer (a/b/c/d): ").lower().strip()
+        
+#uses the in operator to check if the user input exists in our list of options
+        if user_answer in ['a', 'b', 'c', 'd']: 
+            break  #this exits the 'while' loop to grade answer
+        
+#will keep printing this message if input invalid
+        else:
+            print(RED + " Invalid input! Please choose only a, b, c, or d." + RESET) 
 
-    for option in q["options"]: #loop that will iterate through the list of strings stored in the options key for teh current questions
-        print(option) #will print all options (a,b,c,d) on a new line
+#checks if the user's answer matches the value stored in the answer key
+    if user_answer == q["answer"]: 
 
-    user_answer = input("Enter your answer (a/b/c/d): ").lower() #prompts the user to type their answer and stores it in variable user_answer
-                                                                 #.lower concerts input to lowercase to match the answer key
-    if user_answer == q["answer"]: #checks if the user's answer matches the value stored in the answer key
-
-        # prints the correct answer in green and then resets the color
+# prints the correct answer in green and then resets the color
         print(GREEN + " Correct!" + RESET)
 
-        score += 1 #increments the score by 1 for every right answer
+#increments the score by 1 for every right answer
+        score += 1 
 
-    else: #if answer doesn't match value in asnwer key
+#if answer doesn't match value in asnwer key
+    else: 
 
-        # prints the wrong answer in red and uses an f-string to insert the correct answer and then resets the color
+# prints the wrong answer in red and uses an f-string to insert the correct answer and then resets the color
         print(RED + f" Wrong! Correct answer is {q['answer']}" + RESET)
 
+#prints the final score out of the total number of questions
 print("\n" + "=" * 50)
-print(f"Final Score: {score}/{len(questions)}") #prints the final score out of the total number of questions
-
+print(f"Final Score: {score}/{len(questions)}") 
